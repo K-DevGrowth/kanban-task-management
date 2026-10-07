@@ -2,8 +2,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { prisma } from "../lib/prisma";
 import { JWT_EXPIRESIN, JWT_SECRET } from "../config/env";
+import { NextFunction, Request, Response } from "express";
 
-export const signUp = async (req, res, next) => {
+export const signUp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { name, email, password } = req.body;
 
