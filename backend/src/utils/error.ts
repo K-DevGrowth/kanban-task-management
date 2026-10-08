@@ -4,6 +4,6 @@ export class AppError extends Error {
     message: string,
   ) {
     super(message);
-    this.message = "AppError";
+    this.name = "AppError";
   }
 }

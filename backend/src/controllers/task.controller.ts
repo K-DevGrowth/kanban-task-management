@@ -20,6 +20,17 @@ export const createTask: RequestHandler = async (req, res, next) => {
       throw new AppError(400, "Column ID is required");
     }
 
+    const column = await prisma.column.findFirst({
+      where: {
+        id: columnId,
+        board: { is: { userId: req.user.id } },
+      },
+      select: { id: true },
+    });
+    if (!column) {
+      throw new AppError(404, "Column not found");
+    }
+
     const order = await prisma.task.count({ where: { columnId } });
 
     const task = await prisma.task.create({

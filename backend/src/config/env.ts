@@ -6,7 +6,7 @@ config({ path: `.env.${process.env.NODE_ENV ?? "development"}.local` });
 const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(3000),
   DATABASE_URL: z.string().min(1),
-  JWT_SECRET: z.string().max(32),
+  JWT_SECRET: z.string().min(1).max(32),
   JWT_EXPIRESIN: z.string().default("1d"),
 });
 

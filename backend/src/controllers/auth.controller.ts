@@ -19,6 +19,7 @@ export const signUp: RequestHandler = async (req, res, next) => {
 
     const user = await prisma.user.create({
       data: { name, email, password: hashedPassword },
+      omit: { password: true },
     });
 
     const token = signToken(user.id.toString());
@@ -59,4 +60,4 @@ export const signIn: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const signOut: RequestHandler = async (req, res, next) => {};
+// export const signOut: RequestHandler = async (req, res, next) => {};
