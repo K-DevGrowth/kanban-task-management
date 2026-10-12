@@ -16,8 +16,13 @@ export const getBoardColumns: RequestHandler = async (req, res, next) => {
   try {
     const boards = await prisma.board.findFirst({
       where: { id: req.params.boardId },
-      include: { columns: true },
+      include: {
+        columns: {
+          include: { tasks: true },
+        },
+      },
     });
+    
     res.status(200).json({ data: boards });
   } catch (error) {
     next(error);

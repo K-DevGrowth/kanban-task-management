@@ -1,13 +1,15 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import Task from "./Task";
 
-const Column = ({ title }) => {
+const Column = ({ title, tasks }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent></CardContent>
-    </Card>
+    <div className="p-4">
+      <p>{title}</p>
+      <div>
+        {tasks.map((task) => (
+          <Task key={task.id} title={task.title} />
+        ))}
+      </div>
+    </div>
   );
 };
 

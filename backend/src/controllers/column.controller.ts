@@ -3,6 +3,15 @@ import { prisma } from "../lib/prisma.ts";
 import { CreateColumnSchema } from "../schema/column.schema.ts";
 import { AppError } from "../utils/error.ts";
 
+export const getColumns: RequestHandler = async (req, res, next) => {
+  try {
+    const columns = await prisma.column.findMany({ include: { tasks: true } });
+    res.status(200).json({ data: columns });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createColumn: RequestHandler = async (req, res, next) => {
   try {
     const { title } = CreateColumnSchema.parse(req.body);

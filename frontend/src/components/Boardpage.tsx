@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useBoard from "@/hooks/useBoard";
+import useBoard from "@/hooks/useColumn";
 import Column from "./Column";
 
 const Boardpage = () => {
@@ -15,9 +15,9 @@ const Boardpage = () => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4 p-4">
+    <div className="grid grid-cols-3 gap-4">
       {board.data.columns.map((column) => (
-        <Column title={column.title} />
+        <Column key={column.id} title={column.title} tasks={column.tasks} />
       ))}
     </div>
   );

@@ -16,6 +16,9 @@ import {
 import { GalleryVerticalEndIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import useBoards from "@/hooks/useBoards";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { cn } from "cn";
+import InputForm from "./InputForm";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { boards, isPending, isError } = useBoards();
@@ -55,13 +58,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenuSubItem key={item.title}>
                     <SidebarMenuSubButton
                       isActive={item.isActive}
-                      render={<Link to={`/boards/${item.id}/columns`} />}
+                      render={<Link to={`/boards/${item.id}`} />}
                     >
                       {item.title}
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>
                 ))}
               </SidebarMenuSub>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <Dialog>
+                <DialogTrigger className={cn("w-full text-left")}>
+                  Create New Board
+                </DialogTrigger>
+
+                <DialogContent>
+                  <InputForm />
+                </DialogContent>
+              </Dialog>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
