@@ -9,6 +9,14 @@ export const getBoards = async () => {
   return response.json();
 };
 
+export const getBoard = async (boardId: string) => {
+  const res = await fetch(`${baseUrl}/${boardId}`, {
+    method: "GET",
+  });
+  if (!res.ok) throw new Error("Failed to fetch board");
+  return res.json();
+};
+
 export const createBoard = async (payload) => {
   const res = await fetch(`${baseUrl}`, {
     method: "POST",

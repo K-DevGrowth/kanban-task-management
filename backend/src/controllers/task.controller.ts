@@ -12,6 +12,23 @@ export const getTasks: RequestHandler = async (req, res, next) => {
   }
 };
 
+export const getColumnTasks: RequestHandler = async (req, res, next) => {
+  try {
+    const boards = await prisma.column.findFirst({
+      where: { id: req.params.boardId },
+      include: {
+        columns: {
+          include: { tasks: true },
+        },
+      },
+    });
+
+    res.status(200).json({ data: boards });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createTask: RequestHandler = async (req, res, next) => {
   try {
     const { title, description } = CreateTaskSchema.parse(req.body);

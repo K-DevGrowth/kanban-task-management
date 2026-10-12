@@ -1,19 +1,15 @@
 const baseUrl = "/api/v1/boards";
+const token = localStorage.getItem("token");
 
-export const getBoardColumns = async (boardId: string) => {
+export const createColumn = async (boardId, payload) => {
   const res = await fetch(`${baseUrl}/${boardId}/columns`, {
-    method: "GET",
-  });
-  if (!res.ok) throw new Error("Failed to fetch board");
-  return res.json();
-};
-
-export const createBoard = async (payload) => {
-  const res = await fetch(`${baseUrl}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error("Failed to create board");
+  if (!res.ok) throw new Error("Failed to create column");
   return res.json();
 };

@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
-import useBoard from "@/hooks/useColumn";
+import useBoard from "@/hooks/useBoard";
 import Column from "./Column";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { cn } from "cn";
+import FormColumn from "./FormColumn";
 
 const Boardpage = () => {
   const { boardId } = useParams();
@@ -15,10 +18,21 @@ const Boardpage = () => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      {board.data.columns.map((column) => (
+    <div className="grid grid-flow-col gap-4 p-4">
+      {board?.data.columns.map((column) => (
         <Column key={column.id} title={column.title} tasks={column.tasks} />
       ))}
+      <div>
+        <Dialog>
+          <DialogTrigger className={cn("w-full text-left")}>
+            Create New Column
+          </DialogTrigger>
+
+          <DialogContent>
+            <FormColumn />
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };

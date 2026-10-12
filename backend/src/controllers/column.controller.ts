@@ -12,7 +12,7 @@ export const getColumns: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const createColumn: RequestHandler = async (req, res, next) => {
+export const createBoardColumn: RequestHandler = async (req, res, next) => {
   try {
     const { title } = CreateColumnSchema.parse(req.body);
     const boardId = req.params.boardId;
@@ -20,7 +20,7 @@ export const createColumn: RequestHandler = async (req, res, next) => {
       throw new AppError(400, "Board ID is required");
     }
 
-    const board = await prisma.board.findFirst({
+    const board = await prisma.board.findUnique({
       where: { id: boardId, userId: req.user.id },
       select: { id: true },
     });

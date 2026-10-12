@@ -2,8 +2,8 @@ import Task from "./Task";
 
 const Column = ({ title, tasks }) => {
   return (
-    <div className="p-4">
-      <p>{title}</p>
+    <div>
+      <p className="pb-2">{title}</p>
       <div>
         {tasks.map((task) => (
           <Task key={task.id} title={task.title} />

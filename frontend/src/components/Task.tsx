@@ -6,7 +6,9 @@ const Task = ({ title }) => {
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+        <p>0 of 0 subtasks</p>
+      </CardContent>
     </Card>
   );
 };
