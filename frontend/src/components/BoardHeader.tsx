@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import useBoard from "@/hooks/useBoard";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { cn } from "cn";
-import FormColumn from "./FormColumn";
+import FormTask from "./FormTask";
 
 const BoardHeader = () => {
   const { boardId } = useParams();
@@ -29,7 +29,7 @@ const BoardHeader = () => {
           </DialogTrigger>
 
           <DialogContent>
-            <FormColumn />
+            <FormTask />
           </DialogContent>
         </Dialog>
         <DropdownMenu>

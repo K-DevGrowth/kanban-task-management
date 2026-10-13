@@ -12,26 +12,9 @@ export const getTasks: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const getColumnTasks: RequestHandler = async (req, res, next) => {
-  try {
-    const boards = await prisma.column.findFirst({
-      where: { id: req.params.boardId },
-      include: {
-        columns: {
-          include: { tasks: true },
-        },
-      },
-    });
-
-    res.status(200).json({ data: boards });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const createTask: RequestHandler = async (req, res, next) => {
   try {
-    const { title, description } = CreateTaskSchema.parse(req.body);
+    const { title, description, subtasks } = CreateTaskSchema.parse(req.body);
     const columnId = req.params.columnId;
     if (typeof columnId !== "string") {
       throw new AppError(400, "Column ID is required");
@@ -56,7 +39,11 @@ export const createTask: RequestHandler = async (req, res, next) => {
         ...(description !== undefined ? { description } : {}),
         columnId,
         order,
+        subtasks: {
+          create: subtasks.map((subtask) => ({ title: subtask.title })),
+        },
       },
+      include: { subtasks: true },
     });
 
     res.status(201).json({

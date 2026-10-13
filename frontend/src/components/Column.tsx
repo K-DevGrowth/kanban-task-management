@@ -3,10 +3,10 @@ import Task from "./Task";
 const Column = ({ title, tasks }) => {
   return (
     <div>
-      <p className="pb-2">{title}</p>
+      <p className="pb-2 px-2">{title}</p>
       <div>
         {tasks.map((task) => (
-          <Task key={task.id} title={task.title} />
+          <Task key={task.id} title={task.title} subtasks={task.subtasks} />
         ))}
       </div>
     </div>

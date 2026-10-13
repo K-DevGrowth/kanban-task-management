@@ -19,7 +19,11 @@ export const getBoard: RequestHandler = async (req, res, next) => {
       include: {
         columns: {
           include: {
-            tasks: true,
+            tasks: {
+              include: {
+                subtasks: true,
+              },
+            },
           },
         },
       },
