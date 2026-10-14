@@ -8,7 +8,7 @@ const useAuth = () => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      navigate("/boards");
+      navigate("/");
     },
   });
 

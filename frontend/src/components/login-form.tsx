@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export function LoginForm({
   className,
@@ -28,7 +28,7 @@ export function LoginForm({
     password: "",
   });
 
-  const hanldeSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     login(formData);
   };
@@ -43,7 +43,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={hanldeSubmit}>
+          <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>

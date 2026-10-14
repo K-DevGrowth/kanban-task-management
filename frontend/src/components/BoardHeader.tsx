@@ -19,7 +19,6 @@ const BoardHeader = () => {
   return (
     <header className="flex items-center justify-between px-4 h-16 border-b">
       <div className="flex items-center gap-3">
-        <SidebarTrigger />
         <h1 className="text-xl font-bold">{board?.data.title}</h1>
       </div>
       <div className="flex items-center gap-4">

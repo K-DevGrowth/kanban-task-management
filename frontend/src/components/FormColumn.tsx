@@ -1,22 +1,22 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { cn } from "cn";
 import { Button } from "./ui/button";
 import { Field, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
-import { useState } from "react";
-import useBoard from "@/hooks/useBoard";
-import { useParams } from "react-router-dom";
+import useColumn from "@/hooks/useColumn";
 
 const FormColumn = () => {
   const [title, setTitle] = useState("");
   const { boardId } = useParams();
-  const { createColumn } = useBoard(boardId);
+  const { createColumn } = useColumn();
 
   return (
     <form
       className="w-full max-w-xs"
       onSubmit={(e) => {
         e.preventDefault();
-        createColumn({ title });
+        createColumn({ boardId, payload: { title } });
       }}
     >
       <FieldGroup>
