@@ -36,7 +36,7 @@ const FormTask = () => {
   });
 
   const onSubmit = ({ columnId, ...payload }) => {
-    createTask({ columnId, payload });
+    createTask({ boardId, columnId, payload });
   };
 
   if (isError) return "error...";

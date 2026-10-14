@@ -18,10 +18,10 @@ import { Link } from "react-router-dom";
 import useBoards from "@/hooks/useBoards";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { cn } from "cn";
-import InputForm from "./InputForm";
+import FormBoard from "./FormBoard";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { boards, isPending, isError } = useBoards();
+  const { boards, isPending, isError, isCreating, createBoard } = useBoards();
 
   if (isPending) {
     return "loading...";
@@ -73,7 +73,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </DialogTrigger>
 
                 <DialogContent>
-                  <InputForm />
+                  <FormBoard
+                    submitLabel={"Create Board"}
+                    isPending={isCreating}
+                    onSubmit={({ title }) => createBoard({ title })}
+                  />
                 </DialogContent>
               </Dialog>
             </SidebarMenuItem>

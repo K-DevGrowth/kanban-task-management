@@ -56,6 +56,47 @@ export const createBoard: RequestHandler = async (req, res, next) => {
   }
 };
 
-// export const updateBoard: RequestHandler = async (req, res, next) => {};
+export const updateBoard: RequestHandler = async (req, res, next) => {
+  try {
+    const board = await prisma.board.findUnique({
+      where: { id: req.params.id },
+    });
+    if (!board) {
+      throw new AppError(404, "Invalid or missing id");
+    }
 
-// export const deleteBoard: RequestHandler = async (req, res, next) => {};
+    const { title } = CreateBoardSchema.parse(req.body);
+
+    const updatedBoard = await prisma.board.update({
+      where: { id: req.params.id },
+      data: { title },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: { board: updatedBoard },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteBoard: RequestHandler = async (req, res, next) => {
+  try {
+    const board = await prisma.board.findUnique({
+      where: { id: req.params.id },
+    });
+
+    if (!board) {
+      throw new AppError(404, "Invalid or missing id");
+    }
+
+    await prisma.board.delete({
+      where: { id: req.params.id },
+    });
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    next(error);
+  }
+};

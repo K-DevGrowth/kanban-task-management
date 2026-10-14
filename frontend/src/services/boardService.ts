@@ -29,3 +29,30 @@ export const createBoard = async (payload) => {
   if (!res.ok) throw new Error("Failed to create board");
   return res.json();
 };
+
+export const deleteBoard = async (boardId: string) => {
+  const res = await fetch(`${baseUrl}/${boardId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to delete board");
+  return res.json();
+};
+
+export const updateBoard = async (
+  boardId: string,
+  payload: { title: string },
+) => {
+  const res = await fetch(`${baseUrl}/${boardId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error("Failed to update board");
+  return res.json();
+};

@@ -2,19 +2,17 @@ import { cn } from "cn";
 import { Button } from "./ui/button";
 import { Field, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
-import useBoards from "@/hooks/useBoards";
 import { useState } from "react";
 
-const InputForm = () => {
-  const [title, setTitle] = useState("");
-  const { createBoard } = useBoards();
+const FormBoard = ({ submitLabel, onSubmit, isPending, initialTitle = "" }) => {
+  const [title, setTitle] = useState(initialTitle);
 
   return (
     <form
       className="w-full max-w-xs"
       onSubmit={(e) => {
         e.preventDefault();
-        createBoard({ title });
+        onSubmit({ title });
       }}
     >
       <FieldGroup>
@@ -30,8 +28,12 @@ const InputForm = () => {
           />
         </Field>
         <Field orientation="horizontal">
-          <Button className={cn("w-full rounded-2xl")} type="submit">
-            Create Board
+          <Button
+            className={cn("w-full rounded-2xl")}
+            type="submit"
+            disabled={isPending}
+          >
+            {submitLabel}
           </Button>
         </Field>
       </FieldGroup>
@@ -39,4 +41,4 @@ const InputForm = () => {
   );
 };
 
-export default InputForm;
+export default FormBoard;

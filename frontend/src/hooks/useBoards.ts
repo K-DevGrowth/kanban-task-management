@@ -21,6 +21,7 @@ const useBoards = () => {
     isPending: query.isPending,
     isError: query.isError,
     createBoard: createBoardMutation.mutate,
+    isCreating: createBoardMutation.isPending,
   };
 };
 
