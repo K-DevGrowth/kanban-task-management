@@ -2,6 +2,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteBoard, getBoard, updateBoard } from "@/services/boardService";
 import { useNavigate } from "react-router-dom";
 
+const tasksByColumnId = (columns: any) => {
+  const result = columns.reduce((acc: any, column: any) => {
+    acc[column.id] = column.tasks;
+    return acc;
+  }, {});
+  return result;
+};
+
 const useBoard = (boardId: string) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -10,6 +18,10 @@ const useBoard = (boardId: string) => {
     queryKey: ["boards", boardId],
     queryFn: () => getBoard(boardId!),
     enabled: !!boardId,
+    select: (data) => {
+      const tasksByColumn = tasksByColumnId(data.data.columns);
+      return { ...data, tasksByColumn };
+    },
   });
 
   const deleteBoardMutation = useMutation({

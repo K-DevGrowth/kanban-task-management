@@ -18,8 +18,10 @@ export const getBoard: RequestHandler = async (req, res, next) => {
       where: { id: req.params.id },
       include: {
         columns: {
+          orderBy: { order: "asc" },
           include: {
             tasks: {
+              orderBy: { order: "asc" },
               include: {
                 subtasks: true,
               },

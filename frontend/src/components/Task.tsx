@@ -1,10 +1,19 @@
+import { useSortable } from "@dnd-kit/react/sortable";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-const Task = ({ title, subtasks }) => {
+const Task = ({ task, subtasks, index }) => {
+  const { ref } = useSortable({
+    id: task.id,
+    index,
+    type: "task",
+    accept: "task",
+    group: "column",
+  });
+
   return (
-    <Card>
+    <Card ref={ref} className="">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle>{task.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <p>0 of {subtasks.length} subtasks</p>
