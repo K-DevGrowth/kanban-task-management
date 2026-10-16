@@ -6,7 +6,6 @@ import { authorized } from "../middlewares/auth.middleware.ts";
 const columnRouter = Router();
 
 columnRouter.get("/", getColumns);
-// columnRouter.put("/:id");
 // columnRouter.delete("/:id");
 
 columnRouter.post("/:columnId/tasks", authorized, createTask);

@@ -47,9 +47,24 @@ export const createTask: RequestHandler = async (req, res, next) => {
     });
 
     res.status(201).json({
-      success: true,
       data: { task },
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const moveTask: RequestHandler = async (req, res, next) => {
+  try {
+    const { tasks } = req.body;
+
+    await prisma.$transaction(
+      tasks.map(({ id, columnId, order }) =>
+        prisma.task.update({ where: { id }, data: { columnId, order } }),
+      ),
+    );
+
+    res.status(204).end();
   } catch (error) {
     next(error);
   }

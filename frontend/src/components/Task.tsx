@@ -1,13 +1,13 @@
 import { useSortable } from "@dnd-kit/react/sortable";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-const Task = ({ task, subtasks, index }) => {
+const Task = ({ task, subtasks, index, columnId }) => {
   const { ref } = useSortable({
     id: task.id,
     index,
     type: "task",
     accept: "task",
-    group: "column",
+    group: columnId,
   });
 
   return (

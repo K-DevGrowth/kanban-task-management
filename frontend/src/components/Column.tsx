@@ -21,6 +21,7 @@ const Column = ({ column, tasks, index }) => {
             index={index}
             task={task}
             subtasks={task.subtasks}
+            columnId={column.id}
           />
         ))}
       </div>
